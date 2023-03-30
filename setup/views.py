@@ -6,6 +6,11 @@ from .serializers import UserSerializer, GroupSerializer
 # class-based views
 
 
+# Admin:
+# username: admin
+# password: password123
+
+
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     """
