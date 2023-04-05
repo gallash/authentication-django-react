@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-l3ab9ntl=suhd7@ehm!t%=(clgj38y^sb*%wsg4x6^w4k$jr@%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'http://localhost:3000',
+    'http://192.168.0.11:3000'
+]
 
 
 # Application definition
@@ -52,6 +56,29 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
+# ++++ REST Framework API settings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10  # Can it be dynamically altered?
+}
+
+# ++++ CORS configuration
+CORS_ALLOWED_ORIGIN = [
+    'http://localhost:3000'  # For some reason, it does not work if I pass 'http://192.168.0.11:3000'
+]
+
+# ++++ CSRF configuration
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000'
+]
+
+
 
 ROOT_URLCONF = 'registration.urls'
 
@@ -125,13 +152,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# REST Framework API settings
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10  # Can it be dynamically altered?
-}
