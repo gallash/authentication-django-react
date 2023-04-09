@@ -22,6 +22,7 @@ from setup import views
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet, 'user')
 router.register('groups', views.GroupViewSet)
+
 # router.register('connection_test', views.ConnectionTest)  
 # Doing the above would require additional configuration for
 # ConnectionTest, including (but not limited to) "get_extra_actions". It is
@@ -31,6 +32,7 @@ router.register('groups', views.GroupViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('connection-test-function-based', include('setup.urls')),
     path('connection-test', views.ConnectionTest.as_view(), name="connection-test"),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls'))  # Does this line automatically creates for me the connection to the API endpoints?

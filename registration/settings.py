@@ -26,9 +26,11 @@ SECRET_KEY = 'django-insecure-l3ab9ntl=suhd7@ehm!t%=(clgj38y^sb*%wsg4x6^w4k$jr@%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    'http://localhost:3000',
-    'http://192.168.0.11:3000'
+    '*'
+    # 'localhost',
+    # '127.0.0.1',
+    # 'http://localhost:3000',
+    # 'http://192.168.0.11:3000'
 ]
 
 
@@ -60,18 +62,19 @@ MIDDLEWARE = [
 
 
 # ++++ REST Framework API settings
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10  # Can it be dynamically altered?
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ],
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10  # Can it be dynamically altered?
+# }
 
 # ++++ CORS configuration
-CORS_ALLOWED_ORIGIN = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'  # For some reason, it does not work if I pass 'http://192.168.0.11:3000'
 ]
+
 
 # ++++ CSRF configuration
 CSRF_TRUSTED_ORIGINS = [

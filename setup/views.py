@@ -3,27 +3,44 @@ from rest_framework import viewsets  # Creating class-based views
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions  # Creating permissions to our views
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import UserSerializer, GroupSerializer, TestSerializer
 from .models import TestModel
-from rest_framework.decorators import action
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 # No need to use 'render' from 'django.shortcuts' because we are creating 
 # class-based views
 
 
-# Admin:
+# Admin ---------------- #
 # username: admin
 # password: password123
+# ---------------------- #
+
+@api_view(['GET'])
+# @permission_classes([DjangoModelPermissionsOrAnonReadOnly])
+def connection_test(request):  # 'connection-test-function-based'
+    class Item():
+        # 'item' contains the fields required by the serializer
+        def __init__(self, item):
+            self.item = item
+            
+    if request.method == "GET":
+        # queryset = TestModel.objects.all()
+        item = Item("Hello World!")
+        serializer = TestSerializer(item)
+        return Response(serializer.data)
 
 
 # Create your views here.
-class ConnectionTest(APIView):
+class ConnectionTest(APIView):  # 'connection-test'
     # Since this is not a "viewset", it'd need some extra 
     # things, namely "get_extra_actions"
 
     queryset = TestModel.objects.all()  # Mandatory for API enpoints in DRF
     def get(self, request):
-        return Response("Hello World!")  # No serialization required?
+        serializer = TestSerializer("Hello World")
+        return Response(serializer.data)
 
     # The following things are not properly implemented and is not operational
     # but is kept for later studies
